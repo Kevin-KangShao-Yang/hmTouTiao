@@ -73,8 +73,8 @@ export default {
     return {
       // 表单的参数
       form: {
-        mobile: '',
-        code: '',
+        mobile: '13911111111',
+        code: '246810',
         region: ''
       },
       // 定义规则
@@ -122,7 +122,6 @@ export default {
             method: 'post',
             data: this.form
           }).then(res => {
-            // res 中有一个属性叫做 data, 在 data 中有两个属性后面我们会用上： token , refresh_token
             // 只要进入到这个方法中说明登录成功
             this.$message({
               showClose: true,
@@ -130,6 +129,11 @@ export default {
               type: 'success',
               duration: 2000
             })
+            // res 中有一个属性叫做 data, 在 data 中有两个属性后面我们会用上： token , refresh_token
+            // 得到用户信息
+            let userInfo = res.data.data
+            // 将用户的信息保存到 localstorage 中
+            window.localStorage.setItem('name', JSON.stringify(userInfo))
             // 将加载状态改为 false
             this.loadingBtn = false
             // 跳转到主页
